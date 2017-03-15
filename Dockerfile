@@ -1,6 +1,6 @@
 FROM nvidia/cuda:7.5-cudnn5-devel
 
-MAINTAINER zhoumingjun <zhoumingjun@gmail.com>
+MAINTAINER KaiyuShi <skyisno.1@gmail.com>
 
 # Pick up some TF dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         libzmq3-dev \
         libssl-dev \
         pkg-config \
-        python3 \
-        python3-dev \
+        python2.7 \
+        python2.7-dev \
         rsync \
         software-properties-common \
         unzip \
@@ -20,10 +20,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Setup python3 as default
-RUN update-alternatives --install /usr/bin/python python /usr/bin/python3 10
+# Setup python2.7 as default
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python2.7 10
 
-# Install pip for python3
+# Install python2.7
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python get-pip.py && \
     rm get-pip.py
@@ -43,8 +43,10 @@ RUN pip --no-cache-dir install \
         && \
     python -m ipykernel.kernelspec
 
-# Install pytorch GPU version.
-RUN pip install  --no-cache-dir https://download.pytorch.org/whl/cu75/torch-0.1.10.post2-cp35-cp35m-linux_x86_64.whl
+# Install pytorch GPU version. should update through pytorch update
+RUN curl -O https://download.pytorch.org/whl/cu75/torch-0.1.10.post2-cp27-none-linux_x86_64.whl && \
+        pip install --no-cache-dir torch-0.1.10.post2-cp27-none-linux_x86_64.whl && \
+        rm torch-0.1.10.post2-cp27-none-linux_x86_64.whl
 RUN pip install  --no-cache-dir torchvision
 
 # --- ~ DO NOT EDIT OR DELETE BETWEEN THE LINES --- #
