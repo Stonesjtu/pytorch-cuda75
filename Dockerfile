@@ -44,7 +44,7 @@ RUN pip --no-cache-dir install \
     python -m ipykernel.kernelspec
 
 # Install pytorch GPU version.
-RUN pip install  --no-cache-dir https://s3.amazonaws.com/pytorch/whl/cu80/torch-0.1.8.post1-cp35-cp35m-linux_x86_64.whl
+RUN pip install  --no-cache-dir https://download.pytorch.org/whl/cu75/torch-0.1.10.post2-cp35-cp35m-linux_x86_64.whl
 RUN pip install  --no-cache-dir torchvision
 
 # --- ~ DO NOT EDIT OR DELETE BETWEEN THE LINES --- #
